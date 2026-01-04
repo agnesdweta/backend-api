@@ -1,0 +1,104 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "$2b$10$V5DO7w9qYAupjFDEp6UMqOjh4zR.0Xcna6/cc6U05VRnafmQZvboe"
+    },
+    {
+      "username": "Anis",
+      "password": "$2b$10$RJD.VGJe4wUg5v13vyEqYeddjQNlvaftMATpY603r1NQYvPDbyOz."
+    },
+    {
+      "username": "Agnes",
+      "password": "$2b$10$J8ulb6aGe.l9dqtZZSsjiOGTVz8nrR7Yn/xxT3nVAtDbAXFCRHxDS"
+    },
+    {
+      "id": 1767229534273,
+      "username": "Melni",
+      "password": "$2b$10$UTVo7qzec7hkE770nEeEU.8MLj04/kcUC4aJ8uN4Pw7f7oObUMI6C",
+      "firstName": "Melni",
+      "lastName": "yati",
+      "email": "melni@email.com"
+    },
+    {
+      "id": 1767432399738,
+      "username": "Dika",
+      "password": "$2b$10$z5WCheN6QiF1xHjTW8d1Ge1tk.2PRXe2COCk39OJeMWVxJSlBa9vW",
+      "firstName": "Dika",
+      "lastName": "surya",
+      "email": "dikasaputra@gmail.com"
+    }
+  ],
+  "assignments": [
+    {
+      "id": 1767500359729,
+      "title": "Web",
+      "course": "Web",
+      "deadline": "Jumat",
+      "image": null
+    }
+  ],
+  "schedules": [
+    {
+      "id": 1767186597639,
+      "title": "Mobile",
+      "date": "2026-01-09",
+      "time": "20:00 - 22:00"
+    },
+    {
+      "id": 1767189457267,
+      "title": "Pendidikan Agama",
+      "date": "2026-01-11",
+      "time": "15:00 - 15:00"
+    },
+    {
+      "id": 1767449662972,
+      "title": "Web",
+      "date": "2026-01-09",
+      "time": "16:00 - 17:10"
+    }
+  ],
+  "exams": [
+    {
+      "id": 1767250565892,
+      "title": "Web",
+      "course": "pemrograman Web",
+      "date": "2026-01-09",
+      "time": "17:30 - 20:00"
+    },
+    {
+      "id": 1767264801457,
+      "title": "Ujian Tentang Zakat",
+      "course": "Pendidikan Agama",
+      "date": "2026-01-11",
+      "time": "13:00 - 17:00"
+    }
+  ],
+  "questions": [],
+  "courses": [
+    {
+      "id": 1767203991314,
+      "name": "Pemrograman Web",
+      "time": "20.00-22.00",
+      "description": "Belajar Java",
+      "instructor": "Pak Adi"
+    },
+    {
+      "id": 1767321659526,
+      "name": "Pemrograman Mobil",
+      "time": "Jumat, 09 Jan 2026",
+      "description": "Belajar tentang java",
+      "instructor": "Pak Dani"
+    }
+  ],
+  "forum": [
+    {
+      "id": 1767432423362,
+      "content": "Masa",
+      "user": "Dika",
+      "createdAt": "2026-01-03T09:27:03.362Z"
+    }
+  ],
+  "calendar": []
+}
