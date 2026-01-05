@@ -3,15 +3,11 @@
     {
       "id": 1,
       "username": "admin",
-      "password": "$2b$10$V5DO7w9qYAupjFDEp6UMqOjh4zR.0Xcna6/cc6U05VRnafmQZvboe"
+      "photoPath": "1767525099862.jpg"
     },
     {
       "username": "Anis",
       "password": "$2b$10$RJD.VGJe4wUg5v13vyEqYeddjQNlvaftMATpY603r1NQYvPDbyOz."
-    },
-    {
-      "username": "Agnes",
-      "password": "$2b$10$J8ulb6aGe.l9dqtZZSsjiOGTVz8nrR7Yn/xxT3nVAtDbAXFCRHxDS"
     },
     {
       "id": 1767229534273,
@@ -28,14 +24,24 @@
       "firstName": "Dika",
       "lastName": "surya",
       "email": "dikasaputra@gmail.com"
+    },
+    {
+      "id": 1767520739731,
+      "username": "Agnes",
+      "password": "$2b$10$BfGScAwFS4Asi0GLObwxQ.0.HcugQ8klQUGCvjQWDrLaNMjMRgHfu"
+    },
+    {
+      "id": 1767527242292,
+      "username": "Asd",
+      "password": "$2b$10$9HHM3z88.8cZIRHc1Y/FhuHRpVQGr9vCRNi6Y28JDvRaQNmnlV836"
     }
   ],
   "assignments": [
     {
-      "id": 1767500359729,
-      "title": "Web",
-      "course": "Web",
-      "deadline": "Jumat",
+      "id": 1767516845077,
+      "title": "web",
+      "course": "web",
+      "deadline": "rabu",
       "image": null
     }
   ],
@@ -94,11 +100,38 @@
   ],
   "forum": [
     {
-      "id": 1767432423362,
-      "content": "Masa",
-      "user": "Dika",
-      "createdAt": "2026-01-03T09:27:03.362Z"
+      "id": 1767527926952,
+      "content": "Halo",
+      "user": "Agnes",
+      "createdAt": "2026-01-04T11:58:46.952Z"
+    },
+    {
+      "id": 1767534367966,
+      "content": "Sulit",
+      "user": "Agnes",
+      "createdAt": "2026-01-04T13:46:07.966Z"
+    },
+    {
+      "id": 1767626027068,
+      "content": "Kamera OK",
+      "user": "Melni",
+      "createdAt": "2026-01-05T15:13:47.068Z"
     }
   ],
-  "calendar": []
+  "calendar": [
+    {
+      "id": 1767630834131,
+      "date": "2026-01-01",
+      "title": "web",
+      "description": "web",
+      "user": "adi"
+    },
+    {
+      "id": 1767632104855,
+      "date": "2026-01-09",
+      "title": "Mobile",
+      "description": "Buat Aplikasi",
+      "user": "Dani"
+    }
+  ]
 }

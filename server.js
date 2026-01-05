@@ -16,8 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const path = require('path');
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'), // pastikan folder 'uploads' ada
-  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, 'uploads')); // pastikan folder 'uploads'
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
+  }
 });
 
 const upload = multer({ storage });
@@ -134,6 +139,15 @@ app.post('/login', async (req, res) => {
 
 // ===== UPDATE PROFILE USER =====
 // Tanpa token, tanpa password lama, hanya update firstName, lastName, email
+
+app.get('/users/:id', (req, res) => {
+  const db = loadDB();
+  const id = Number(req.params.id);
+  const user = db.users.find(u => u.id === id);
+  if (!user) return res.status(404).json({ message: 'User tidak ditemukan' });
+  res.json(user);
+});
+
 app.put('/users/:id/profile', (req, res) => {
   const db = loadDB();
   const id = Number(req.params.id);
@@ -152,22 +166,37 @@ app.put('/users/:id/profile', (req, res) => {
   res.json({ message: 'Profile berhasil diupdate', user });
 });
 
-// UPDATE PHOTO USER
-app.put('/users/:id/photo', upload.single('photo'), (req, res) => {
-    const db = loadDB();
-    const id = Number(req.params.id);
-    const user = db.users.find(u => u.id === id);
+// UPLOAD PHOTO USER (POST)
+app.post('/users/:id/photo', upload.single('photo'), (req, res) => {
+    try {
+        const db = loadDB();
+        const id = Number(req.params.id);
+        const user = db.users.find(u => u.id === id);
+        if (!user) return res.status(404).json({ message: 'User tidak ditemukan' });
 
-    if (!user) return res.status(404).json({ message: 'User tidak ditemukan' });
-    if (!req.file) return res.status(400).json({ message: 'File tidak ada' });
+        if (!req.file) return res.status(400).json({ message: 'File tidak ada' });
 
-    user.photoPath = req.file.filename; // simpan nama file ke db.json
-    saveDB(db);
+        // Hapus foto lama jika ada
+        if (user.photoPath) {
+      const oldFile = path.join(__dirname, 'uploads', user.photoPath);
+      if (fs.existsSync(oldFile)) {
+        fs.unlinkSync(oldFile);
+      }
+    
+        }
 
-    res.json({ message: 'Foto berhasil diupdate', user });
+        // Simpan nama file baru ke db.json
+        user.photoPath = req.file.filename;
+        saveDB(db);
+
+        // Return user terbaru
+    res.json(user);
+  } catch (err) {
+    console.error('Error upload photo:', err);
+    res.status(500).json({ message: 'Terjadi kesalahan server' });
+  }
 });
-
-
+  
 
 
 // ================= ASSIGNMENTS CRUD =================
@@ -237,6 +266,54 @@ app.delete('/assignments/:id', (req, res) => {
 
   saveDB(db);
   res.json({ message: 'Assignment dihapus' });
+});
+// UPLOAD IMAGE
+app.post('/assignments/:id/upload', upload.single('image'), (req, res) => {
+  console.log("REQ FILE:", req.file); 
+  if (!req.file) {
+    return res.status(400).json({ message: 'Tidak ada file yang diupload' });
+  }
+  const db = loadDB();
+  const idx = db.assignments.findIndex(a => a.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ message: 'Assignment tidak ditemukan' });
+
+  db.assignments[idx].image = req.file.filename;
+  saveDB(db);
+   res.json(db.assignments[idx]);
+});
+
+// DELETE IMAGE
+app.delete('/assignments/:id/image', (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+
+  const db = loadDB();
+  const idx = db.assignments.findIndex(a => a.id == req.params.id);
+  if (idx === -1) return res.status(404).json({ message: 'Assignment tidak ditemukan' });
+
+  const assignment = db.assignments[idx];
+
+  if (!assignment.image) {
+    return res.status(400).json({ message: 'Assignment tidak memiliki gambar' });
+  }
+
+  // path file gambar di server
+  const filePath = path.join(__dirname, 'uploads', assignment.image);
+
+  // hapus file dari folder uploads
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error("Gagal hapus file:", err);
+      // tetap lanjut hapus reference di DB meskipun file tidak ada
+    }
+
+    // hapus reference gambar di DB
+    assignment.image = null;
+    saveDB(db);
+
+    // kembalikan assignment terbaru
+    res.json(assignment);
+  });
 });
 
 // ===== CRUD Schedule =====
